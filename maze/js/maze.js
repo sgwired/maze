@@ -59,7 +59,7 @@ Maze.prototype.isInBounds = function (x, y) {
 }
 
 
-Maze.prototype.canMove = function (x,y, direction) {
+Maze.prototype.canMove = function (x,y,direction) {
 	if (!this.isValidDirection(direction)) {
 		return false;
 	}
@@ -71,44 +71,43 @@ Maze.prototype.canMove = function (x,y, direction) {
 
 
 	// check to see which way robot is facing to see if inbounds
-	var fowardX, fowardY;
-	switch (direction) {
-		case "north":
-			fowardX = x;
-			fowardY = y+1;
-			break;
-		case "east":
-			fowardX = x+1;
-			fowardY = y;
-			break;
-		case "south":
-			fowardX = x;
-			fowardY = y-1;
-			break;
-		case "west":
-			fowardX = x-1;
-			fowardY = y;
-			break;
-	}
+    var forwardX, forwardY;
+    switch (direction) {
+      case "north":
+          forwardX = x;
+          forwardY = y+1;
+          break;
+      case "east":
+          forwardX = x+1;
+          forwardY = y;
+          break;
+      case "south":
+          forwardX = x;
+          forwardY = y-1;
+          break;
+      case "west":
+          forwardX = x-1;
+          forwardY = y;
+          break;
+    }
 
-	if (!this.isInBounds(fowardX, fowardY)) {
-		return false;
-	}
+   if (!this.isInBounds(forwardX,forwardY)) {
+        return false;
+    }
 
-	// check if there is wall in front of robot
-	if (this.spaces[x][y][direction]) {
-		return false;
-	}
+    if (this.spaces[x][y][direction]) {
+        return false;
+    }
 
 	// check to see if while is on oppiside of wall in front of robot
-	var opposites = {
-		north: "south",
-		east: "west",
-		south: "north",
-		west: "east",
-	};
+    var opposites = {
+        north: "south",
+        east: "west",
+        south: "north",
+        west: "east"
+    };
 
-	if (this.spaces[fowardX][fowardX][opposites[direction]]) {
+	if (this.spaces[forwardX][forwardY][opposites[direction]]) {
 		return false;
 	}
 
